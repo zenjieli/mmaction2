@@ -19,7 +19,7 @@
             "console": "integratedTerminal",
             "args": [
                 "configs/skeleton/posec3d/slowonly_kinetics400-pretrained-r50_8xb16-u48-120e_hmdb51-split1-keypoint.py",
-                "slowonly_kinetics400-pretrained-r50_8xb16-u48-120e_hmdb51-split1-keypoint_20220815-17eaa484.pth"
+                "cfgs/slowonly_kinetics400-pretrained-r50_8xb16-u48-120e_hmdb51-split1-keypoint_20220815-17eaa484.pth"
             ]
         },
         {
@@ -29,8 +29,15 @@
             "program": "tools/train.py",
             "console": "integratedTerminal",
             "args": [
-                "configs/skeleton/posec3d/slowonly_kinetics400-pretrained-r50_8xb16-u48-120e_hmdb51-split1-keypoint.py"
+                "custom/configs/c3d_cauca_kul.py"
             ]
+        },
+        {
+            "name": "CreatePkl",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "custom/data_to_pkl.py",
+            "console": "integratedTerminal",
         }
     ]
 }

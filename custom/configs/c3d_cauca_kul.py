@@ -20,7 +20,7 @@ model = dict(
     cls_head=dict(
         type='I3DHead',
         in_channels=512,
-        num_classes=51,
+        num_classes=2,
         spatial_type='avg',
         dropout_ratio=0.5,
         average_clips='prob'),
@@ -119,7 +119,7 @@ test_dataloader = dict(
         pipeline=test_pipeline,
         test_mode=True))
 
-val_evaluator = dict(type='ConfusionMatrix')
+val_evaluator = dict(type='AccMetric', metric_list=('mean_average_precision'))
 test_evaluator = val_evaluator
 
 train_cfg = dict(

@@ -192,6 +192,21 @@ def mean_average_precision(scores, labels):
     scores = np.stack(scores).T
     labels = np.stack(labels).T
 
+    # Customize for our project
+    if all(labels <= 1):
+        preds = (scores[1] >= 0.5).astype(int)
+        TP = np.sum((preds == 1) & (labels == 1))
+        FP = np.sum((preds == 1) & (labels == 0))
+        FN = np.sum((preds == 0) & (labels == 1))
+
+        precision = TP / (TP + FP) if (TP + FP) != 0 else 0
+        recall = TP / (TP + FN) if (TP + FN) != 0 else 0
+        if precision + recall == 0:
+            f1 = 0
+        else:
+            f1 = 2 * (precision * recall) / (precision + recall)
+        return f1
+    
     for score, label in zip(scores, labels):
         precision, recall, _ = binary_precision_recall_curve(score, label)
         ap = -np.sum(np.diff(recall) * np.array(precision)[:-1])
